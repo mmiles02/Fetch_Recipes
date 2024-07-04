@@ -11,7 +11,8 @@ import SwiftUI
 struct Fetch_RecipesApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            DessertListView()
+                .environmentObject(DessertViewModel())
         }
     }
 }

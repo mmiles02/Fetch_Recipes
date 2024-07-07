@@ -8,11 +8,137 @@
 import SwiftUI
 
 struct RecipeView: View {
+    
+    @EnvironmentObject var viewModel: DessertViewModel
+    
+    @State private var recipe: Recipe?
+    @State var titleAndImageHeight: CGFloat = 0
+    @State var image: Image?
+    
+    private var backgroundColor: Color = Color(red: 209/255, green: 223/255, blue: 227/255)
+    private var textColor: Color = Color(red: 10/255, green: 74/255, blue: 92/255)
+    
+    private var dessertID: String
+    
+    public init(dessertID: String) {
+        self.dessertID = dessertID
+    }
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            if let recipe {
+                ZStack {
+                    VStack {
+                        HStack {
+                            Text(recipe.name)
+                                .font(.title)
+                                .foregroundStyle(textColor)
+                                .bold()
+                                .hidden()
+                            Spacer()
+                        }
+                        .padding(.horizontal)
+                        if let image {
+                            image
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .clipShape(RoundedRectangle(cornerRadius: 25))
+                                .padding(.horizontal)
+                                .modifier(GetHeightModifier(height: $titleAndImageHeight))
+                        }
+                        Spacer()
+                    }
+                    VStack {
+                        HStack {
+                            Text(recipe.name)
+                                .font(.title)
+                                .foregroundStyle(textColor)
+                                .bold()
+                            Spacer()
+                        }
+                        .padding(.horizontal)
+                        ScrollView {
+                            Spacer()
+                                .frame(height: titleAndImageHeight + 25)
+                            
+                            VStack(alignment: .leading) {
+                                HStack {
+                                    Text("Ingredients")
+                                        .font(.title)
+                                        .foregroundStyle(textColor)
+                                        .bold()
+                                    Spacer()
+                                }
+                                Spacer()
+                                    .frame(height: 10)
+                                ForEach(recipe.measurements, id:\.self) { measurement in
+                                    let ingredient = measurement.ingredient.trimmingCharacters(in: .whitespaces)
+                                    let amount = measurement.amount.trimmingCharacters(in: .whitespaces)
+                                    if (!ingredient.isEmpty || !amount.isEmpty) {
+                                        Text("• \(amount) \(ingredient)")
+                                            .foregroundStyle(textColor)
+                                    }
+                                }
+                                
+                                Spacer()
+                                    .frame(height: 30)
+                                
+                                HStack {
+                                    Text("Instructions")
+                                        .font(.title)
+                                        .foregroundStyle(textColor)
+                                        .bold()
+                                    Spacer()
+                                }
+                                Spacer()
+                                    .frame(height: 10)
+                                Text(recipe.instructions)
+                                    .foregroundStyle(textColor)
+                            }
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(
+                                RoundedRectangle(cornerRadius: 25)
+                                    .fill(backgroundColor)
+                                    .shadow(radius: 5)
+                            )
+                            .padding(.horizontal)
+                        }
+                    }
+                }
+            } else {
+                ProgressView()
+            }
+        }
+        .onAppear {
+            Task {
+                recipe = await viewModel.loadRecipe(dessertID: dessertID)
+                
+                // Load image (should be cached already)
+                if let recipe {
+                    image = await viewModel.loadImage(url: recipe.thumbnailURL)
+                }
+            }
+        }
+    }
+}
+
+struct GetHeightModifier: ViewModifier {
+    @Binding var height: CGFloat
+
+    func body(content: Content) -> some View {
+        content.background(
+            GeometryReader { geo -> Color in
+                DispatchQueue.main.async {
+                    height = geo.size.height
+                }
+                return Color.clear
+            }
+        )
     }
 }
 
 #Preview {
-    RecipeView()
+    RecipeView(dessertID: "53049")
+        .environmentObject(DessertViewModel())
 }

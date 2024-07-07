@@ -9,6 +9,10 @@ import SwiftUI
 
 struct DessertCardView: View {
     
+    @EnvironmentObject var viewModel: DessertViewModel
+    
+    @State private var image: Image?
+    
     private var dessert: Dessert
     
     public init(dessert: Dessert) {
@@ -16,28 +20,43 @@ struct DessertCardView: View {
     }
     
     var body: some View {
-        AsyncImage(url: URL(string: dessert.thumbnailURL)) { image in
-            image.resizable()
-        } placeholder: {
-            ProgressView()
-        }
-        .aspectRatio(contentMode: .fit)
-        .clipShape(RoundedRectangle(cornerRadius: 25))
-        .overlay(
-            VStack {
-                HStack {
-                    Text(dessert.name)
-                        .font(.title2)
-                        .bold()
-                        .foregroundStyle(.white)
-                        .shadow(color: .black, radius: 5)
-                        .multilineTextAlignment(.leading)
-                    Spacer()
-                }
-                Spacer()
+        VStack {
+            /// I would have used AsyncImage here, but a known bug with AsyncImage and LazyVGrid causes loading errors
+            /// https://developer.apple.com/forums/thread/682498
+            if let image {
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .clipShape(RoundedRectangle(cornerRadius: 25))
+                    .overlay(
+                        VStack {
+                            HStack {
+                                Text(dessert.name)
+                                    .font(.title2)
+                                    .bold()
+                                    .foregroundStyle(.white)
+                                    .shadow(color: .black, radius: 5)
+                                    .multilineTextAlignment(.leading)
+                                Spacer()
+                            }
+                            Spacer()
+                        }
+                        .padding()
+                    )
+            } else {
+                RoundedRectangle(cornerRadius: 25)
+                    .fill(Color(white: 0.8))
+                    .aspectRatio(1.0, contentMode: .fit)
+                    .overlay(
+                        ProgressView()
+                    )
             }
-            .padding()
-        )
+        }
+        .onAppear {
+            Task {
+                image = await viewModel.loadImage(url: dessert.thumbnailURL)
+            }
+        }
     }
 }
 
@@ -49,4 +68,5 @@ struct DessertCardView: View {
             thumbnailURL: "https://www.themealdb.com/images/media/meals/adxcbq1619787919.jpg"
         )
     )
+    .environmentObject(DessertViewModel())
 }

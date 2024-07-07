@@ -14,16 +14,17 @@ struct DessertListView: View {
     @State private var searchText: String = ""
     
     let columns = [
-        GridItem(.adaptive(minimum: 150), spacing: 20)
+        GridItem(.adaptive(minimum: 150), spacing: 15)
     ]
     
     var body: some View {
         NavigationStack {
             ScrollView {
-                LazyVGrid(columns: columns, spacing: 20) {
+                LazyVGrid(columns: columns, spacing: 15) {
                     ForEach(searchResults, id: \.id) { dessert in
                         NavigationLink(
-                            destination: Text(dessert.name).navigationTitle(dessert.name)
+                            destination: RecipeView(dessertID: dessert.id)
+                                .navigationBarTitleDisplayMode(.inline)
                         ) {
                             DessertCardView(dessert: dessert)
                         }

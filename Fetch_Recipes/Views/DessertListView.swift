@@ -32,7 +32,7 @@ struct DessertListView: View {
                 }
             }
             .padding(.horizontal)
-            .navigationTitle("Desserts")
+            .navigationTitle(DessertStrings.desserts)
         }
         .searchable(text: $searchText)
         .onAppear {

@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-class DessertViewModel: ObservableObject {
+@MainActor class DessertViewModel: ObservableObject {
     
     @Published var desserts: [Dessert] = []
     
@@ -22,8 +22,8 @@ class DessertViewModel: ObservableObject {
             let loadedDesserts = try await DessertAPICaller.loadDesserts()
             
             // Update the view model on the main thread
-            await MainActor.run {
-                desserts = cleanAndSortDessertData(desserts: loadedDesserts)
+            DispatchQueue.main.async {
+                self.desserts = self.cleanAndSortDessertData(desserts: loadedDesserts)
             }
         } catch {
             loadError = error.localizedDescription

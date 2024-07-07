@@ -14,6 +14,7 @@
 		A01064212C34F00C001CF07E /* Fetch_RecipesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01064202C34F00C001CF07E /* Fetch_RecipesTests.swift */; };
 		A010642B2C34F00C001CF07E /* Fetch_RecipesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A010642A2C34F00C001CF07E /* Fetch_RecipesUITests.swift */; };
 		A010642D2C34F00C001CF07E /* Fetch_RecipesUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A010642C2C34F00C001CF07E /* Fetch_RecipesUITestsLaunchTests.swift */; };
+		A093FB9E2C3B053600087802 /* DessertStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A093FB9D2C3B053600087802 /* DessertStrings.swift */; };
 		A0FE241E2C362A2E00F13C07 /* DessertAPICaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FE241D2C362A2E00F13C07 /* DessertAPICaller.swift */; };
 		A0FE24202C362CD200F13C07 /* Dessert.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FE241F2C362CD200F13C07 /* Dessert.swift */; };
 		A0FE24222C362DDA00F13C07 /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0FE24212C362DDA00F13C07 /* Recipe.swift */; };
@@ -51,6 +52,7 @@
 		A01064262C34F00C001CF07E /* Fetch_RecipesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Fetch_RecipesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A010642A2C34F00C001CF07E /* Fetch_RecipesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fetch_RecipesUITests.swift; sourceTree = "<group>"; };
 		A010642C2C34F00C001CF07E /* Fetch_RecipesUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fetch_RecipesUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		A093FB9D2C3B053600087802 /* DessertStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DessertStrings.swift; sourceTree = "<group>"; };
 		A0FE241D2C362A2E00F13C07 /* DessertAPICaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DessertAPICaller.swift; sourceTree = "<group>"; };
 		A0FE241F2C362CD200F13C07 /* Dessert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dessert.swift; sourceTree = "<group>"; };
 		A0FE24212C362DDA00F13C07 /* Recipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
@@ -159,6 +161,7 @@
 				A0FE241D2C362A2E00F13C07 /* DessertAPICaller.swift */,
 				A0FE241F2C362CD200F13C07 /* Dessert.swift */,
 				A0FE24212C362DDA00F13C07 /* Recipe.swift */,
+				A093FB9D2C3B053600087802 /* DessertStrings.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -302,6 +305,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A0FE241E2C362A2E00F13C07 /* DessertAPICaller.swift in Sources */,
+				A093FB9E2C3B053600087802 /* DessertStrings.swift in Sources */,
 				A0FE24242C3633FD00F13C07 /* DessertViewModel.swift in Sources */,
 				A01064112C34F005001CF07E /* DessertListView.swift in Sources */,
 				A0FE24202C362CD200F13C07 /* Dessert.swift in Sources */,

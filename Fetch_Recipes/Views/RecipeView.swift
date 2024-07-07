@@ -28,6 +28,7 @@ struct RecipeView: View {
         VStack {
             if let recipe {
                 ZStack {
+                    // Recipe name height placeholder and image
                     VStack {
                         HStack {
                             Text(recipe.name)
@@ -48,6 +49,7 @@ struct RecipeView: View {
                         }
                         Spacer()
                     }
+                    // Recipe name and instructions card
                     VStack {
                         HStack {
                             Text(recipe.name)
@@ -60,10 +62,9 @@ struct RecipeView: View {
                         ScrollView {
                             Spacer()
                                 .frame(height: titleAndImageHeight + 25)
-                            
                             VStack(alignment: .leading) {
                                 HStack {
-                                    Text("Ingredients")
+                                    Text(DessertStrings.ingredients)
                                         .font(.title)
                                         .foregroundStyle(textColor)
                                         .bold()
@@ -79,12 +80,10 @@ struct RecipeView: View {
                                             .foregroundStyle(textColor)
                                     }
                                 }
-                                
                                 Spacer()
                                     .frame(height: 30)
-                                
                                 HStack {
-                                    Text("Instructions")
+                                    Text(DessertStrings.instructions)
                                         .font(.title)
                                         .foregroundStyle(textColor)
                                         .bold()

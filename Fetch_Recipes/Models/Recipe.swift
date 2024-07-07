@@ -67,7 +67,7 @@ struct Recipe: Codable, Hashable {
     
     var measurements: [Measurement] {
         get {
-            return [
+            let allMeasurements = [
                 Measurement(ingredient: strIngredient1 ?? "", amount: strMeasure1 ?? ""),
                 Measurement(ingredient: strIngredient2 ?? "", amount: strMeasure2 ?? ""),
                 Measurement(ingredient: strIngredient3 ?? "", amount: strMeasure3 ?? ""),
@@ -89,6 +89,11 @@ struct Recipe: Codable, Hashable {
                 Measurement(ingredient: strIngredient19 ?? "", amount: strMeasure19 ?? ""),
                 Measurement(ingredient: strIngredient20 ?? "", amount: strMeasure20 ?? "")
             ]
+            
+            // Filter out all the empty values
+            return allMeasurements.filter({
+                !($0.amount.isEmpty && $0.ingredient.isEmpty)
+            })
         }
     }
     
